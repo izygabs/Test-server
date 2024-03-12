@@ -24,5 +24,7 @@ jobs:
     steps:
       - name: Pull image from Docker Hub
         run: docker pull izygabs/test-server:latest
+      - name: Remove existing container if exists
+        run: docker rm -f test-server-container || true
       - name: Run Docker Container
         run: docker run -d -p 4000:4000 --name test-server-container --env MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} izygabs/test-server
