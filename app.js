@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const db = require("./mongoConnect");
 const port = 4000;
 const app = express();
+const cors = require("cors");
+
+app.use(cors());
 
 app.use((_req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
