@@ -1,22 +1,25 @@
 const { MongoClient } = require("mongodb");
-// require("dotenv").config();
-
-// const connectionString =
-//   process.env.ATLAS_DATABASE || process.env.COMPASS_DATABASE;
+require("dotenv").config();
 const password = encodeURIComponent(process.env.MONGO_PASSWORD.trim());
 const connectString = `mongodb+srv://Testserver:${password}@devcluster.4n9t8fi.mongodb.net/?retryWrites=true&w=majority&appName=DevCluster`;
+
 const client = new MongoClient(connectString);
 
-let conn;
-try {
-  conn = await client.connect();
-  console.log("Connection established");
-} catch (e) {
-  console.error(e);
+async function connectToDatabase() {
+  let conn;
+  try {
+    conn = await client.connect();
+    console.log("Connection established");
+  } catch (e) {
+    console.error(e);
+  }
+
+  let db = conn.db("test_naija");
+  module.exports = db;
 }
 
-let db = conn.db("test_naija");
-module.exports = db;
+// Call the asynchronous function to establish the connection
+connectToDatabase();
 
 // async function connectToMongoDB() {
 //   const client = new MongoClient(connectionString, {
