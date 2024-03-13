@@ -17,18 +17,9 @@ app.get("/", (req, res) => {
   res.send("Hello World, from Naija01");
 });
 
-// app.post("/addUser", async (req, res) => {
-//   let collection = await db.collection("users");
-//   let newDocument = req.body;
-//   newDocument.date = new Date();
-//   let result = await collection.insertOne(newDocument);
-//   console.log("rreq" + req.body);
-//   res.send(result).status(204);
-// });
-
 app.post("/addUser", async (req, res) => {
   try {
-    let collection = await db.collection("users");
+    let collection = await db.getDb().collection("users");
     let newDocument = req.body;
     newDocument.date = new Date();
     let result = await collection.insertOne(newDocument);
@@ -39,6 +30,20 @@ app.post("/addUser", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+// app.post("/addUser", async (req, res) => {
+//   try {
+//     let collection = await db.collection("users");
+//     let newDocument = req.body;
+//     newDocument.date = new Date();
+//     let result = await collection.insertOne(newDocument);
+//     console.log("req", req.body);
+//     res.status(204).send(result);
+//   } catch (error) {
+//     console.error("Error adding user:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 // app.get("/getUsers", async (req, res) => {
 //   let collection = await db.collection("users");
