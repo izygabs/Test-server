@@ -7,27 +7,37 @@ const cors = require("cors");
 
 app.use(cors());
 
-app.use((_req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  next();
-});
+app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World, from Naija01");
 });
 
+// app.post("/addUser", async (req, res) => {
+//   let collection = await db.collection("users");
+//   let newDocument = req.body;
+//   newDocument.date = new Date();
+//   let result = await collection.insertOne(newDocument);
+//   console.log("rreq" + req.body);
+//   res.send(result).status(204);
+// });
+
 app.post("/addUser", async (req, res) => {
-  let collection = await db.collection("users");
-  let newDocument = req.body;
-  newDocument.date = new Date();
-  let result = await collection.insertOne(newDocument);
-  console.log("rreq" + req.body);
-  res.send(result).status(204);
+  try {
+    let collection = await db.collection("users");
+    let newDocument = req.body;
+    newDocument.date = new Date();
+    let result = await collection.insertOne(newDocument);
+    console.log("req", req.body);
+    res.status(204).send(result);
+  } catch (error) {
+    console.error("Error adding user:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 app.get("/getUsers", async (req, res) => {
