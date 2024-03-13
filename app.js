@@ -40,14 +40,14 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
-app.get("/getUsers", async (req, res) => {
-  let collection = await db.collection("users");
-  let results = await collection
-    .find({})
+// app.get("/getUsers", async (req, res) => {
+//   let collection = await db.collection("users");
+//   let results = await collection
+//     .find({})
 
-    .toArray();
-  res.send(results).status(200);
-});
+//     .toArray();
+//   res.send(results).status(200);
+// });
 
 app.listen(port, function () {
   console.log(`Server is running on ${port}`);
