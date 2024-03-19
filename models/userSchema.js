@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+const { getDb } = require("../mongoConnect");
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
-    lowerCase: true,
+    lowercase: true,
   },
   password: {
     type: String,
@@ -13,6 +14,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports.user = mongoose.model("users", userSchema);
+// Method to save user to the database
+userSchema.methods.saveToDatabase = async function () {
+  try {
+    const collection = getDb().collection("users");
+    await collection.insertOne(this.toObject());
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// Function to create a new User in the database
+module.exports = mongoose.model("user", userSchema);

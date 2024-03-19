@@ -1,4 +1,4 @@
-const { user } = require("../models/userSchema");
+const user = require("../models/userSchema");
 const { signupJoi } = require("../validators/joiValidation");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
@@ -28,7 +28,12 @@ const signUp = async (req, res) => {
   }
 
   try {
-    const userExist = await user.findOne({ email: value.email });
+    // const userExist = await user
+    //   .findOne({ email: value.email })
+    //   .maxTimeMS(20000);
+    const userExist = await user.findOne({ email: value.email }, null, {
+      maxTimeMS: 20000,
+    });
 
     if (userExist) {
       return {
@@ -42,7 +47,7 @@ const signUp = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hashPassword(value.password, salt);
 
-    const newUser = new users({
+    const newUser = new user({
       email: value.email,
       password: hashedPassword,
       confirmPassword: value.confirmPassword,
