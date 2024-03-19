@@ -51,13 +51,13 @@ const signUp = async (req, res) => {
 
     await newUser.save();
 
-    const confirmationLink = `https://http://16.171.26.115:3000/confirm-email?token=${token}`;
+    const confirmationLink = `http://16.171.26.115:3000/confirm-email?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL,
       to: value.email,
       subject: "Email Confirmation",
-      html: `Click the following link to confirm your email:<a href="${confirmationLink}">${confirmationLink}</a>`,
+      text: `Click the following link to confirm your email: "${confirmationLink}">${confirmationLink}`,
     };
 
     await transporter.sendMail(mailOptions);
