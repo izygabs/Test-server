@@ -20,21 +20,21 @@ app.get("/", (req, res) => {
   res.send("Hello World, from Naija01");
 });
 
-// app.listen(port, async () => {
-//   await mongooseConnection();
-//   console.log(`Server is running on ${port}`);
+app.listen(port, async () => {
+  await mongooseConnection();
+  console.log(`Server is running on ${port}`);
+});
+
+// mongooseConnection.on("open", async () => {
+//   // Using the 'open' event to start the server after the connection is established
+//   app.listen(port, () => {
+//     console.log(`Server is running on ${port}`);
+//   });
 // });
 
-mongooseConnection.on("open", async () => {
-  // Using the 'open' event to start the server after the connection is established
-  app.listen(port, () => {
-    console.log(`Server is running on ${port}`);
-  });
-});
-
-mongooseConnection.on("error", (error) => {
-  console.error("MongoDB connection error:", error);
-});
+// mongooseConnection.on("error", (error) => {
+//   console.error("MongoDB connection error:", error);
+// });
 
 // app.post("/addUser", async (req, res) => {
 //   try {

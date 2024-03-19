@@ -39,16 +39,29 @@ const connectString =
   `mongodb+srv://Testserver:${password}@devcluster.4n9t8fi.mongodb.net/?retryWrites=true&w=majority&appName=DevCluster` ||
   `mongodb://localhost:27017/Naija01`;
 
-mongoose.connect(connectString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(connectString, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-const db = mongoose.connection;
+// const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
-  console.log("MongoDB connection established");
-});
+// db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// db.once("open", () => {
+//   console.log("MongoDB connection established");
+// });
 
-module.exports = db;
+// module.exports = db;
+
+const mongooseConnection = () => {
+  return mongoose
+    .connect(connectString)
+    .then(() => {
+      console.log(`Connected to ${connectString}`);
+    })
+    .catch((err) => {
+      console.log(`Connection to ${connectString} failed ${err}`);
+    });
+};
+
+module.exports = mongooseConnection;
