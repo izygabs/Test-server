@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { getDb } = require("../mongoConnect");
+// const { getDb } = require("../mongoConnect");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -14,14 +14,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Method to save user to the database
-userSchema.methods.saveToDatabase = async function () {
-  try {
-    const collection = getDb().collection("users");
-    await collection.insertOne(this.toObject());
-  } catch (error) {
-    console.error(error);
-  }
-};
+// // Method to save user to the database
+// userSchema.methods.saveToDatabase = async function () {
+//   try {
+//     const collection = getDb().collection("users");
+//     await collection.insertOne(this.toObject());
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-module.exports = mongoose.model("user", userSchema);
+module.exports.User = mongoose.model("user", userSchema);
