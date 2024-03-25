@@ -67,7 +67,7 @@ app.post("/users", async (req, res) => {
     const collection = await db.getDb().collection("users");
     const newUser = req.body;
     const user = await collection.insertOne(newUser);
-    res.status(201).json(user);
+    res.status(201).send(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
