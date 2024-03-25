@@ -54,14 +54,14 @@ app.post("/addUser", async (req, res) => {
 
 app.post("/users", async (req, res) => {
   try {
-    const userExist = await db
-      .getDb()
-      .collection("users")
-      .findOne({ email: req.body.email });
+    // const userExist = await db
+    //   .getDb()
+    //   .collection("users")
+    //   .findOne({ email: req.body.email });
 
-    if (!userExist) {
-      res.status(409).json({ message: "User already exists" });
-    }
+    // if (!userExist) {
+    //   res.status(409).json({ message: "User already exists" });
+    // }
     // const salt = await bcrypt.genSalt(10)
     // const hashedPassword = await bcrypt.hash(value.password, salt)
     const collection = await db.getDb().collection("users");
