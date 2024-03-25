@@ -52,7 +52,7 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
-app.post("/api/users", async (req, res) => {
+app.post("/users", async (req, res) => {
   try {
     const userExist = await db
       .getDb()
@@ -64,6 +64,7 @@ app.post("/api/users", async (req, res) => {
     }
     // const salt = await bcrypt.genSalt(10)
     // const hashedPassword = await bcrypt.hash(value.password, salt)
+    const collection = await db.getDb().collection("users");
     const newUser = req.body;
     const user = await collection.insertOne(newUser);
     res.status(201).json(user);
