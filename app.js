@@ -52,6 +52,27 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
+app.post("/api/users", async (req, res) => {
+  try {
+    const userExist = await db
+      .getDb()
+      .collection("users")
+      .findOne({ email: req.body.email });
+
+    if (!userExist) {
+      res.status(409).json({ message: "User already exists" });
+    }
+    // const salt = await bcrypt.genSalt(10)
+    // const hashedPassword = await bcrypt.hash(value.password, salt)
+    const newUser = req.body;
+    const user = await collection.insertOne(newUser);
+    res.status(201).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.get("/getUsers", async (req, res) => {
   let collection = await db.getDb().collection("users");
   let results = await collection
